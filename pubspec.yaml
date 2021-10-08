@@ -30,6 +30,7 @@ dependencies:
 
   permission_handler: ^10.0.0
   fluttertoast: ^8.1.2
+  intl: ^0.18.0
 
 
 
