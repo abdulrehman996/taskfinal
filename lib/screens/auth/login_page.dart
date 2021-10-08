@@ -4,6 +4,8 @@ import 'package:flutter/material.dart';
 import 'package:sizer/sizer.dart';
 
 import '../../utility/colors.dart';
+import '../../utility/custom_validators.dart';
+import '../../widgets/custom_widgets/custom_textformfield.dart';
 import '../../widgets/input_decorations.dart';
 
 class LoginPage extends StatefulWidget {
@@ -103,12 +105,12 @@ class _LoginPageState extends State<LoginPage> {
                                 children: [
                                   SizedBox(
                                     height: 36,
-                                    child: TextField(
+                                    child: CustomTextFormField(
                                       controller: _emailController,
-                                      autofocus: false,
-                                      decoration: InputDecorations
-                                          .buildInputDecoration_1(
-                                              hintText: "maryam@example.com"),
+                                      hint: 'test@test.com',
+                                      keyboardType: TextInputType.emailAddress,
+                                      validator: (String? value) =>
+                                          CustomValidator.email(value),
                                     ),
                                   ),
                                 ],
@@ -174,8 +176,8 @@ class _LoginPageState extends State<LoginPage> {
                                   onPressed: () {
                                     Navigator.push(context,
                                         MaterialPageRoute(builder: (context) {
-                                          return const MaineScreen();
-                                        }));
+                                      return const MaineScreen();
+                                    }));
                                   },
                                 ),
                               ),
