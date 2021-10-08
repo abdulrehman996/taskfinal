@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "738734599438",
+    "project_id": "bizlink-fyp",
+    "storage_bucket": "bizlink-fyp.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:738734599438:android:e1f6b4d76112cb662bfb5f",
+        "android_client_info": {
+          "package_name": "com.example.biz_link"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "738734599438-8rqrmn7rt86nq36aef7mhm9u7bd0hjl7.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBDy098LNA6zjQVVN1aDLWYAAXHLc9la-s"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "738734599438-8rqrmn7rt86nq36aef7mhm9u7bd0hjl7.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
