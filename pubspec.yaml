@@ -10,7 +10,12 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
-    
+  
+  cloud_firestore: ^4.3.1
+  firebase_auth: ^4.2.5
+  firebase_core: ^2.4.1
+  firebase_storage: ^11.0.10
+
   cupertino_icons: ^1.0.2
   sizer:
   get:
@@ -30,7 +35,7 @@ dependencies:
 
   permission_handler: ^10.0.0
   fluttertoast: ^8.1.2
-  intl: ^0.18.0
+  intl: ^0.17.0
   dropdown_search: ^2.0.1
 
 dev_dependencies:
@@ -48,7 +53,7 @@ flutter_icons:
 flutter_app_name:
   name: "BizLink"
   flutter_lints: ^2.0.0
-  
+
 flutter:
   uses-material-design: true
   assets:
