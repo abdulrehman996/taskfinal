@@ -5,7 +5,7 @@ class MyColor {
   static Color accent_color_shadow = Color(0xFFF2F2F2);
   static Color soft_accent_color = Color(0xFF3A707A);
   static Color splash_screen_color = Color(0xFF2A5159);
-
+  
   static Color white = Color.fromRGBO(255, 255, 255, 1);
   static Color noColor = Color.fromRGBO(255, 255, 255, 0);
   static Color light_grey = Color.fromRGBO(239, 239, 239, 1);
