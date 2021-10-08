@@ -20,6 +20,16 @@ dependencies:
   flutter_launcher_icons: ^0.10.0
   flutter_rating_bar: ^4.0.0
 
+  shared_preferences: ^2.0.15
+  provider: ^6.0.3
+
+  extended_image: ^6.2.1
+  file_picker: ^4.6.1
+
+  carousel_slider: ^4.1.1
+
+  permission_handler: ^10.0.0
+
 
 
 
