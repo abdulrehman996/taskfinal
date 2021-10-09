@@ -1,8 +1,15 @@
+import 'package:biz_link/database/auth_methods.dart';
+import 'package:biz_link/database/user_api.dart';
+import 'package:biz_link/enums/role.dart';
+import 'package:biz_link/models/app_user.dart';
 import 'package:biz_link/screens/auth/login_page.dart';
+import 'package:biz_link/screens/home/main_screen.dart';
 import 'package:biz_link/utility/custom_validators.dart';
 import 'package:biz_link/widgets/custom_widgets/custom_textformfield.dart';
 import 'package:biz_link/widgets/custom_widgets/custom_toast.dart';
 import 'package:biz_link/widgets/custom_widgets/password_textformfield.dart';
+import 'package:biz_link/widgets/custom_widgets/show_loading.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:sizer/sizer.dart';
 
@@ -27,6 +34,15 @@ class _SignupPageState extends State<SignupPage> {
       TextEditingController();
   final GlobalKey<FormState> _key = GlobalKey<FormState>();
 
+  List<Role> _roleList = [
+    Role.distributor,
+    Role.factory,
+    Role.wholesaler,
+    Role.retailer,
+  ];
+
+  Role _selectedRole = Role.distributor;
+  bool _isLoading = false;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -160,6 +176,8 @@ class _SignupPageState extends State<SignupPage> {
                               ),
                               PasswordTextFormField(
                                 controller: _passwordController,
+                                validator: (value) =>
+                                    CustomValidator.password(value),
                                 hint: ' . . . . . . .',
                               ),
                               Padding(
@@ -174,7 +192,59 @@ class _SignupPageState extends State<SignupPage> {
                               ),
                               PasswordTextFormField(
                                 controller: _passwordConfirmController,
+                                validator: (value) =>
+                                    CustomValidator.confirmPassword(
+                                        value, _passwordController.text),
                                 hint: ' . . . . . . .',
+                              ),
+                              const SizedBox(height: 10),
+                              Padding(
+                                padding: const EdgeInsets.only(bottom: 4.0),
+                                child: Row(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceEvenly,
+                                  children: [
+                                    for (int i = 0; i < _roleList.length; i++)
+                                      Expanded(
+                                        child: InkWell(
+                                          onTap: () {
+                                            _selectedRole = _roleList[i];
+                                            setState(() {});
+                                          },
+                                          child: Container(
+                                            margin: EdgeInsets.all(4),
+                                            padding: EdgeInsets.all(4),
+                                            decoration: BoxDecoration(
+                                              border: Border.all(
+                                                  color: _selectedRole ==
+                                                          _roleList[i]
+                                                      ? MyColor.accent_color
+                                                      : Colors.grey.shade400,
+                                                  width: 4),
+                                              borderRadius:
+                                                  BorderRadius.circular(15),
+                                            ),
+                                            child: Column(
+                                              crossAxisAlignment:
+                                                  CrossAxisAlignment.center,
+                                              mainAxisAlignment:
+                                                  MainAxisAlignment.center,
+                                              children: [
+                                                Image.asset(
+                                                    _roleList[i].iconPath,
+                                                    height: 40),
+                                                FittedBox(
+                                                  fit: BoxFit.fill,
+                                                  child:
+                                                      Text(_roleList[i].name),
+                                                ),
+                                              ],
+                                            ),
+                                          ),
+                                        ),
+                                      ),
+                                  ],
+                                ),
                               ),
                               Padding(
                                 padding: const EdgeInsets.only(top: 20.0),
@@ -232,45 +302,78 @@ class _SignupPageState extends State<SignupPage> {
                               ),
                               Padding(
                                 padding: const EdgeInsets.only(top: 30.0),
-                                child: Container(
-                                  height: 45,
-                                  decoration: BoxDecoration(
-                                      border: Border.all(
-                                          color: MyColor.text_field_grey,
-                                          width: 1),
-                                      borderRadius: const BorderRadius.all(
-                                          Radius.circular(12.0))),
-                                  child: ElevatedButton(
-                                    style: ElevatedButton.styleFrom(
-                                      elevation: 0,
-                                      primary: MyColor.accent_color,
-                                      shape: const RoundedRectangleBorder(
-                                          borderRadius: BorderRadius.all(
-                                              Radius.circular(6.0))),
-                                      fixedSize: Size.fromWidth(
-                                          MediaQuery.of(context).size.width),
-                                    ),
-                                    child: const Text(
-                                      'Sign up',
-                                      style: TextStyle(
-                                          color: Colors.white,
-                                          fontSize: 13,
-                                          fontWeight: FontWeight.w600),
-                                    ),
-                                    onPressed: () {
-                                      if (!_key.currentState!.validate())
-                                        return;
-                                      if (!_isAgree) {
-                                        CustomToast.errorToast(
-                                          message:
-                                              'Accept Terms and condition to signup',
-                                        );
-                                        return;
-                                      }
-                                      // onPressedLogin();
-                                    },
-                                  ),
-                                ),
+                                child: _isLoading
+                                    ? const ShowLoading()
+                                    : Container(
+                                        height: 45,
+                                        decoration: BoxDecoration(
+                                            border: Border.all(
+                                                color: MyColor.text_field_grey,
+                                                width: 1),
+                                            borderRadius:
+                                                const BorderRadius.all(
+                                                    Radius.circular(12.0))),
+                                        child: ElevatedButton(
+                                          style: ElevatedButton.styleFrom(
+                                            elevation: 0,
+                                            primary: MyColor.accent_color,
+                                            shape: const RoundedRectangleBorder(
+                                                borderRadius: BorderRadius.all(
+                                                    Radius.circular(6.0))),
+                                            fixedSize: Size.fromWidth(
+                                                MediaQuery.of(context)
+                                                    .size
+                                                    .width),
+                                          ),
+                                          child: const Text(
+                                            'Sign up',
+                                            style: TextStyle(
+                                                color: Colors.white,
+                                                fontSize: 13,
+                                                fontWeight: FontWeight.w600),
+                                          ),
+                                          onPressed: () async {
+                                            if (!_key.currentState!.validate())
+                                              return;
+                                            if (!_isAgree) {
+                                              CustomToast.errorToast(
+                                                message:
+                                                    'Accept Terms and condition to signup',
+                                              );
+                                              return;
+                                            }
+                                            setState(() {
+                                              _isLoading = true;
+                                            });
+                                            final User? user =
+                                                await AuthMethods()
+                                                    .signupWithEmailAndPassword(
+                                              email: _emailController.text,
+                                              password:
+                                                  _passwordController.text,
+                                            );
+                                            if (user == null) {
+                                              setState(() {
+                                                _isLoading = false;
+                                              });
+                                              return;
+                                            }
+                                            final AppUser appuser = AppUser(
+                                              uid: user.uid,
+                                              displayName:
+                                                  '${_firstNameController.text} ${_lastNameController.text}',
+                                              email: _emailController.text,
+                                              role: _selectedRole,
+                                            );
+                                            await UserAPI().addUser(appuser);
+                                            Navigator.of(context)
+                                                .pushNamedAndRemoveUntil(
+                                                    MaineScreen.routeName,
+                                                    (Route<dynamic> route) =>
+                                                        false);
+                                          },
+                                        ),
+                                      ),
                               ),
                               Padding(
                                 padding: const EdgeInsets.only(top: 20.0),
@@ -296,11 +399,7 @@ class _SignupPageState extends State<SignupPage> {
                                             fontWeight: FontWeight.w600),
                                       ),
                                       onTap: () {
-                                        Navigator.push(context,
-                                            MaterialPageRoute(
-                                                builder: (context) {
-                                          return const LoginPage();
-                                        }));
+                                        Navigator.of(context).pop();
                                       },
                                     ),
                                   ],

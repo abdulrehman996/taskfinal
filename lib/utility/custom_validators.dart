@@ -15,6 +15,16 @@ class CustomValidator {
     return null;
   }
 
+  static String? confirmPassword(String? value, String oldPassword) {
+    if (value!.length < 6) {
+      return 'Password should be greater then 6 digits';
+    }
+    if (value != oldPassword) {
+      return 'Confirm password is not same';
+    }
+    return null;
+  }
+
   static String? isEmpty(String? value) {
     return (value!.isEmpty) ? 'Field could not be empty' : null;
   }

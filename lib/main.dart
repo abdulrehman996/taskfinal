@@ -1,3 +1,4 @@
+import 'package:biz_link/screens/home/main_screen.dart';
 import 'package:biz_link/utility/colors.dart';
 
 import '../screens/auth/login_page.dart';
@@ -44,6 +45,10 @@ class MyApp extends StatelessWidget {
           ),
         ),
         home: SplashScreen(),
+        routes: {
+          LoginPage.routeName: (_) => const LoginPage(),
+          MaineScreen.routeName: (_) => const MaineScreen(),
+        },
       );
     });
   }

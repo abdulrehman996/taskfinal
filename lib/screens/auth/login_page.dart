@@ -2,6 +2,7 @@ import 'package:biz_link/database/auth_methods.dart';
 import 'package:biz_link/screens/auth/signup_page.dart';
 import 'package:biz_link/screens/home/main_screen.dart';
 import 'package:biz_link/widgets/custom_widgets/password_textformfield.dart';
+import 'package:biz_link/widgets/custom_widgets/show_loading.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:sizer/sizer.dart';
@@ -13,7 +14,7 @@ import '../../widgets/input_decorations.dart';
 
 class LoginPage extends StatefulWidget {
   const LoginPage({Key? key}) : super(key: key);
-
+  static const String routeName = '/login-screen';
   @override
   State<LoginPage> createState() => _LoginPageState();
 }
@@ -22,6 +23,7 @@ class _LoginPageState extends State<LoginPage> {
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
   final GlobalKey<FormState> _key = GlobalKey<FormState>();
+  bool _isLoading = false;
 
   @override
   Widget build(BuildContext context) {
@@ -134,55 +136,74 @@ class _LoginPageState extends State<LoginPage> {
                                   crossAxisAlignment: CrossAxisAlignment.end,
                                   children: [
                                     PasswordTextFormField(
-                                        controller: _passwordController),
+                                      controller: _passwordController,
+                                      validator: (value) =>
+                                          CustomValidator.password(value),
+                                    ),
                                   ],
                                 ),
                               ),
-                              Padding(
-                                padding: const EdgeInsets.only(top: 30.0),
-                                child: Container(
-                                  height: 45,
-                                  decoration: BoxDecoration(
-                                      border: Border.all(
-                                          color: MyColor.text_field_grey,
-                                          width: 1),
-                                      borderRadius: const BorderRadius.all(
-                                          Radius.circular(12.0))),
-                                  child: ElevatedButton(
-                                    style: ElevatedButton.styleFrom(
-                                      elevation: 0,
-                                      primary: MyColor.accent_color,
-                                      shape: const RoundedRectangleBorder(
-                                          borderRadius: BorderRadius.all(
-                                              Radius.circular(6.0))),
-                                      fixedSize: Size.fromWidth(
-                                          MediaQuery.of(context).size.width),
+                              _isLoading
+                                  ? const ShowLoading()
+                                  : Padding(
+                                      padding: const EdgeInsets.only(top: 30.0),
+                                      child: Container(
+                                        height: 45,
+                                        decoration: BoxDecoration(
+                                            border: Border.all(
+                                                color: MyColor.text_field_grey,
+                                                width: 1),
+                                            borderRadius:
+                                                const BorderRadius.all(
+                                                    Radius.circular(12.0))),
+                                        child: ElevatedButton(
+                                          style: ElevatedButton.styleFrom(
+                                            elevation: 0,
+                                            primary: MyColor.accent_color,
+                                            shape: const RoundedRectangleBorder(
+                                                borderRadius: BorderRadius.all(
+                                                    Radius.circular(6.0))),
+                                            fixedSize: Size.fromWidth(
+                                                MediaQuery.of(context)
+                                                    .size
+                                                    .width),
+                                          ),
+                                          child: const Text(
+                                            'Login',
+                                            style: TextStyle(
+                                                color: Colors.white,
+                                                fontSize: 13,
+                                                fontWeight: FontWeight.w600),
+                                          ),
+                                          onPressed: () async {
+                                            if (!_key.currentState!
+                                                .validate()) {
+                                              return;
+                                            }
+                                            setState(() {
+                                              _isLoading = true;
+                                            });
+                                            final User? user =
+                                                await AuthMethods()
+                                                    .loginWithEmailAndPassword(
+                                              _emailController.text,
+                                              _passwordController.text,
+                                            );
+                                            if (user == null) {
+                                              setState(() {
+                                                _isLoading = false;
+                                              });
+                                              return;
+                                            }
+                                            Navigator.push(context,
+                                                MaterialPageRoute(
+                                                    builder: (context) {
+                                              return const MaineScreen();
+                                            }));
+                                          },
+                                        ),
+                                      ),
                                     ),
-                                    child: const Text(
-                                      'Login',
-                                      style: TextStyle(
-                                          color: Colors.white,
-                                          fontSize: 13,
-                                          fontWeight: FontWeight.w600),
-                                    ),
-                                    onPressed: () async {
-                                      if (!_key.currentState!.validate()) {
-                                        return;
-                                      }
-                                      final User? user = await AuthMethods()
-                                          .loginWithEmailAndPassword(
-                                        _emailController.text,
-                                        _passwordController.text,
-                                      );
-                                      if (user == null) return;
-                                      Navigator.push(context,
-                                          MaterialPageRoute(builder: (context) {
-                                        return const MaineScreen();
-                                      }));
-                                    },
-                                  ),
-                                ),
-                              ),
                               Padding(
                                 padding: const EdgeInsets.only(
                                     top: 15.0, bottom: 15),
