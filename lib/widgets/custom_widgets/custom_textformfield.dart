@@ -60,55 +60,48 @@ class CustomTextFormFieldState extends State<CustomTextFormField> {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      margin: const EdgeInsets.symmetric(vertical: 6),
-      decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(14),
-        color: widget.color ?? Colors.grey[300],
-      ),
-      child: TextFormField(
-        initialValue: widget.initialValue,
-        controller: widget._controller,
-        readOnly: widget.readOnly,
-        keyboardType: widget.maxLines! > 1
-            ? TextInputType.multiline
-            : widget.keyboardType ?? TextInputType.text,
-        textInputAction: widget.maxLines! > 1
-            ? TextInputAction.newline
-            : widget.textInputAction ?? TextInputAction.next,
-        autofocus: widget.autoFocus,
-        textAlign: widget.textAlign,
-        onChanged: widget.onChanged,
-        minLines: widget.minLines,
-        maxLines: (widget._controller!.text.isEmpty) ? 1 : widget.maxLines,
-        maxLength: widget.maxLength,
-        validator: (String? value) => widget.validator!(value),
-        cursorColor: Theme.of(context).colorScheme.secondary,
-        decoration: InputDecoration(
-          fillColor: widget.color ?? Colors.grey[300],
-          contentPadding: widget.contentPadding ??
-              const EdgeInsets.symmetric(horizontal: 12),
-          hintText: widget.hint,
-          hintStyle: widget.hint!.length > 15
-              ? const TextStyle(fontSize: 14)
-              : const TextStyle(fontSize: 15),
-          suffixIcon: (widget._controller!.text.isEmpty)
-              ? const SizedBox(width: 0, height: 0)
-              : (widget.showPrefixIcon == false)
-                  ? const SizedBox(width: 0, height: 0)
-                  : IconButton(
-                      splashRadius: 16,
-                      onPressed: () => setState(() {
-                        widget._controller!.clear();
-                      }),
-                      icon: const Icon(CupertinoIcons.clear, size: 18),
-                    ),
-          focusColor: Theme.of(context).primaryColor,
-          border: widget.border ??
-              OutlineInputBorder(
-                borderRadius: BorderRadius.circular(14),
-              ),
-        ),
+    return TextFormField(
+      initialValue: widget.initialValue,
+      controller: widget._controller,
+      readOnly: widget.readOnly,
+      keyboardType: widget.maxLines! > 1
+          ? TextInputType.multiline
+          : widget.keyboardType ?? TextInputType.text,
+      textInputAction: widget.maxLines! > 1
+          ? TextInputAction.newline
+          : widget.textInputAction ?? TextInputAction.next,
+      autofocus: widget.autoFocus,
+      textAlign: widget.textAlign,
+      onChanged: widget.onChanged,
+      minLines: widget.minLines,
+      maxLines: (widget._controller!.text.isEmpty) ? 1 : widget.maxLines,
+      maxLength: widget.maxLength,
+      validator: (String? value) => widget.validator!(value),
+      cursorColor: Theme.of(context).colorScheme.secondary,
+      decoration: InputDecoration(
+        fillColor: widget.color ?? Colors.grey[300],
+        contentPadding:
+            widget.contentPadding ?? const EdgeInsets.symmetric(horizontal: 12),
+        hintText: widget.hint,
+        hintStyle: widget.hint!.length > 15
+            ? const TextStyle(fontSize: 14)
+            : const TextStyle(fontSize: 15),
+        suffixIcon: (widget._controller!.text.isEmpty)
+            ? const SizedBox(width: 0, height: 0)
+            : (widget.showPrefixIcon == false)
+                ? const SizedBox(width: 0, height: 0)
+                : IconButton(
+                    splashRadius: 16,
+                    onPressed: () => setState(() {
+                      widget._controller!.clear();
+                    }),
+                    icon: const Icon(CupertinoIcons.clear, size: 18),
+                  ),
+        focusColor: Theme.of(context).primaryColor,
+        border: widget.border ??
+            OutlineInputBorder(
+              borderRadius: BorderRadius.circular(14),
+            ),
       ),
     );
   }
