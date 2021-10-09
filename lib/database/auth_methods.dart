@@ -11,7 +11,7 @@ class AuthMethods {
 
   static String get uid => _auth.currentUser?.uid ?? '';
 
-  static String get uniqueID => uid + TimeDateFunctions.timestamp.toString();
+  static String get uniqueID => '$uid-post-${TimeDateFunctions.timestamp}';
 
   Future<User?>? signupWithEmailAndPassword({
     required String email,

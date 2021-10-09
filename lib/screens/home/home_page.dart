@@ -1,6 +1,10 @@
+import 'package:biz_link/models/product/product.dart';
+import 'package:biz_link/providers/product_provider.dart';
 import 'package:biz_link/screens/auth/login_page.dart';
 import 'package:biz_link/screens/product_screens/add_product_screen.dart';
+import 'package:biz_link/widgets/product/product_tile.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 import '../../database/auth_methods.dart';
 
@@ -14,6 +18,8 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
+    final List<Product> products =
+        Provider.of<ProductProvider>(context).products;
     return Scaffold(
       appBar: AppBar(
         title: Text('Home Page'),
@@ -40,6 +46,13 @@ class _HomePageState extends State<HomePage> {
                 Navigator.of(context).pushNamed(AddProductScreen.routeName);
               },
             ),
+            Expanded(
+              child: ListView.builder(
+                itemCount: products.length,
+                itemBuilder: (context, index) =>
+                    ProductTile(product: products[index]),
+              ),
+            )
           ],
         ),
       ),

@@ -1,4 +1,5 @@
 import 'package:biz_link/providers/product_category_provider.dart';
+import 'package:biz_link/providers/product_provider.dart';
 import 'package:biz_link/providers/user_provider.dart';
 import 'package:biz_link/screens/home/main_screen.dart';
 import 'package:biz_link/screens/product_screens/add_product_screen.dart';
@@ -27,6 +28,7 @@ class MyApp extends StatelessWidget {
     return MultiProvider(
       providers: [
         ChangeNotifierProvider(create: (context) => UserProvider()),
+        ChangeNotifierProvider(create: (context) => ProductProvider()),
         ChangeNotifierProvider(create: (context) => ProdCatProvider()),
       ],
       child: Sizer(builder: (
