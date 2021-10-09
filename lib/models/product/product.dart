@@ -1,3 +1,5 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+
 import 'product_url.dart';
 
 class Product {
@@ -55,27 +57,27 @@ class Product {
   }
 
   // ignore: sort_constructors_first
-//   factory Product.fromDoc(DocumentSnapshot<Map<String, dynamic>> doc) {
-//     List<ProductURL> prodURL = <ProductURL>[];
-//     doc.data()!['prodURL'].forEach((dynamic e) {
-//       prodURL.add(ProductURL.fromMap(e));
-//     });
-//     return Product(
-//       pid: doc.data()!['pid'] ?? '',
-//       uid: doc.data()!['uid'] ?? '',
-//       title: doc.data()!['title'] ?? '',
-//       prodURL: prodURL,
-//       thumbnail: doc.data()!['thumbnail'] ?? '',
-//       description: doc.data()!['description'] ?? '',
-//       categories: List<String>.from(doc.data()!['categories']),
-//       subCategories: List<String>.from(doc.data()!['sub_categories']),
-//       price: doc.data()!['price']?.toDouble() ?? 0.0,
-//       location: doc.data()!['location'] ?? 'location not found',
-//       quantity: doc.data()!['quantity']?.toInt() ?? 0,
-//       acceptOffers: doc.data()!['accept_offers'] ?? false,
-//       deliveryFree: doc.data()!['delivery_free']?.toDouble() ?? 0.0,
-//       timestamp: doc.data()!['timestamp']?.toInt(),
-//       isAvailable: doc.data()!['is_available'] ?? false,
-//     );
-//   }
+  factory Product.fromDoc(DocumentSnapshot<Map<String, dynamic>> doc) {
+    List<ProductURL> prodURL = <ProductURL>[];
+    doc.data()!['prodURL'].forEach((dynamic e) {
+      prodURL.add(ProductURL.fromMap(e));
+    });
+    return Product(
+      pid: doc.data()!['pid'] ?? '',
+      uid: doc.data()!['uid'] ?? '',
+      title: doc.data()!['title'] ?? '',
+      prodURL: prodURL,
+      thumbnail: doc.data()!['thumbnail'] ?? '',
+      description: doc.data()!['description'] ?? '',
+      categories: List<String>.from(doc.data()!['categories']),
+      subCategories: List<String>.from(doc.data()!['sub_categories']),
+      price: doc.data()!['price']?.toDouble() ?? 0.0,
+      location: doc.data()!['location'] ?? 'location not found',
+      quantity: doc.data()!['quantity']?.toInt() ?? 0,
+      acceptOffers: doc.data()!['accept_offers'] ?? false,
+      deliveryFree: doc.data()!['delivery_free']?.toDouble() ?? 0.0,
+      timestamp: doc.data()!['timestamp']?.toInt(),
+      isAvailable: doc.data()!['is_available'] ?? false,
+    );
+  }
 }

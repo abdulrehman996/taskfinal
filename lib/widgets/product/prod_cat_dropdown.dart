@@ -31,7 +31,7 @@ class ProdCatDropdown extends StatelessWidget {
       margin: margin ?? const EdgeInsets.symmetric(vertical: 4),
       alignment: Alignment.center,
       decoration: BoxDecoration(
-        color: color ?? Theme.of(context).primaryColor.withOpacity(0.9),
+        border: Border.all(color: Color.fromARGB(255, 201, 201, 201)),
         borderRadius: borderRadius ?? BorderRadius.circular(16),
       ),
       child: DropdownSearch<ProdCategory>(

@@ -365,7 +365,8 @@ class _SignupPageState extends State<SignupPage> {
                                               email: _emailController.text,
                                               role: _selectedRole,
                                             );
-                                            await UserAPI().addUser(appuser);
+                                            await UserAPI()
+                                                .register(user: appuser);
                                             Navigator.of(context)
                                                 .pushNamedAndRemoveUntil(
                                                     MaineScreen.routeName,

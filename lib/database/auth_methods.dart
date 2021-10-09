@@ -46,7 +46,7 @@ class AuthMethods {
         CustomToast.errorToast(message: obj.toString());
       });
       final User? user = result.user;
-      final AppUser? appUser = await UserAPI().getInfo(uid: user!.uid);
+      final AppUser? appUser = await UserAPI().user(uid: user!.uid);
       return user;
     } catch (signUpError) {
       CustomToast.errorToast(message: signUpError.toString());
