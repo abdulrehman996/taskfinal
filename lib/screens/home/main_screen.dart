@@ -152,7 +152,7 @@ class _MaineScreenState extends State<MaineScreen> {
                         size: 16,
                       ),
                     ),
-                    label: 'Home'),
+                    label: 'Cart'),
                 BottomNavigationBarItem(
                     icon: Padding(
                       padding: const EdgeInsets.only(bottom: 8.0),
