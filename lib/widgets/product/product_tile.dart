@@ -1,10 +1,16 @@
+import 'package:biz_link/screens/auth/login_page.dart';
+import 'package:biz_link/widgets/custom_widgets/custom_elevated_button.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
+import '../../database/auth_methods.dart';
 import '../../functions/time_date_function.dart';
+import '../../functions/unique_id_functions.dart';
 import '../../models/app_user.dart';
+import '../../models/chat/chat.dart';
 import '../../models/product/product.dart';
 import '../../providers/user_provider.dart';
+import '../../screens/chat/personal_chat_page/product_chat_screen.dart';
 import '../../utility/utilities.dart';
 import '../custom_widgets/custom_profile_image.dart';
 import 'prod_urls_slider.dart';
@@ -31,6 +37,36 @@ class ProductTile extends StatelessWidget {
             child: ProductURLsSlider(urls: product.prodURL),
           ),
           _InfoCard(product: product),
+          CustomElevatedButton(
+            title: 'Message',
+            onTap: () {
+              if (AuthMethods.getCurrentUser == null) {
+                Navigator.of(context).pushReplacement(MaterialPageRoute(
+                  builder: (context) => LoginPage(),
+                ));
+                return;
+              }
+              if (AuthMethods.uid == product.uid) return;
+              final AppUser user =
+                  Provider.of<UserProvider>(context, listen: false)
+                      .user(uid: product.uid);
+              Navigator.of(context).push(MaterialPageRoute<ProductChatScreen>(
+                builder: (BuildContext context) => ProductChatScreen(
+                  chatWith: user,
+                  chat: Chat(
+                    chatID: UniqueIdFunctions.productID(product.pid),
+                    persons: <String>[
+                      AuthMethods.uid,
+                      product.uid,
+                    ],
+                    pid: product.pid,
+                    prodIsVideo: product.prodURL[0].isVideo,
+                  ),
+                  product: product,
+                ),
+              ));
+            },
+          ),
         ],
       ),
     );
