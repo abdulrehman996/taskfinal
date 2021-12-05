@@ -1,5 +1,9 @@
+import 'package:biz_link/database/auth_methods.dart';
+import 'package:biz_link/models/app_user.dart';
+import 'package:biz_link/providers/user_provider.dart';
 import 'package:biz_link/widgets/circle_image.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:sizer/sizer.dart';
 
 import '../../utility/colors.dart';
@@ -12,11 +16,8 @@ class ProfilePage extends StatefulWidget {
 }
 
 class _ProfilePageState extends State<ProfilePage> {
-  int _cartCounter = 0;
   String _cartCounterString = "...";
-  int _wishlistCounter = 0;
   String _wishlistCounterString = "...";
-  int _orderCounter = 0;
   String _orderCounterString = "...";
 
   @override
@@ -45,11 +46,13 @@ class _ProfilePageState extends State<ProfilePage> {
                 child: buildTopSection(),
               ),
               Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 18.0, vertical: 10.0),
+                padding: const EdgeInsets.symmetric(
+                    horizontal: 18.0, vertical: 10.0),
                 child: buildCountersRow(),
               ),
               Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 18.0, vertical: 10.0),
+                padding: const EdgeInsets.symmetric(
+                    horizontal: 18.0, vertical: 10.0),
                 child: buildSettingAndAddonsVerticalMenu(),
               ),
             ],
@@ -60,70 +63,76 @@ class _ProfilePageState extends State<ProfilePage> {
   }
 
   Widget buildTopSection() {
-    return Container(
-      // color: Colors.amber,
-      alignment: Alignment.center,
-      height: 48,
-      child: Row(
-        crossAxisAlignment: CrossAxisAlignment.center,
-        children: [
-          CircleAvatar(
-            backgroundImage: AssetImage('assets/images/avatar.jpg'),
-            backgroundColor: MyColor.amber,
-          ),
-          // CircleImage(
-          //     imageUrl:
-          //         'https://images.unsplash.com/photo-1500648767791-00dcc994a43e?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1887&q=80'),
-          SizedBox(
-            width: 5,
-          ),
-          Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Text(
-                "Maryam Khalid",
-                style: TextStyle(
+    return Consumer<UserProvider>(builder: (context, userPro, _) {
+      final AppUser me = userPro.user(uid: AuthMethods.uid);
+      return Container(
+        // color: Colors.amber,
+        alignment: Alignment.center,
+        height: 48,
+        child: Row(
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            CircleAvatar(
+              // backgroundImage: AssetImage('assets/images/avatar.jpg'),
+              backgroundImage: NetworkImage(me.imageURL ?? ''),
+              backgroundColor: MyColor.amber,
+            ),
+            // CircleImage(
+            //     imageUrl:
+            //         'https://images.unsplash.com/photo-1500648767791-00dcc994a43e?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1887&q=80'),
+            SizedBox(
+              width: 5,
+            ),
+            Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Text(
+                  me.displayName ?? 'null',
+                  style: TextStyle(
                     fontSize: 14,
                     color: MyColor.white,
-                    fontWeight: FontWeight.w600),
-              ),
-              Padding(
-                padding: const EdgeInsets.only(top: 4.0),
-                child: Text(
-                  "maryam.khalid@gmail.com",
-                  style: TextStyle(
-                    color: MyColor.light_grey,
+                    fontWeight: FontWeight.w600,
                   ),
                 ),
-              ),
-            ],
-          ),
-          Spacer(),
-          Container(
-            width: 70,
-            height: 26,
-            child: ElevatedButton(
-              style: ElevatedButton.styleFrom(
-                primary: MyColor.noColor,
-                shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(6),
-                    side: BorderSide(color: MyColor.white)),
-                padding: EdgeInsets.symmetric(horizontal: 14, vertical: 7),
-              ),
-              child: Text(
-                'Log out',
-                style: TextStyle(
-                    color: Colors.white,
-                    fontSize: 10,
-                    fontWeight: FontWeight.w500),
-              ),
-              onPressed: () {},
+                Padding(
+                  padding: const EdgeInsets.only(top: 4.0),
+                  child: Text(
+                    me.email ?? 'null@null.com',
+                    style: TextStyle(
+                      color: MyColor.light_grey,
+                    ),
+                  ),
+                ),
+              ],
             ),
-          ),
-        ],
-      ),
-    );
+            Spacer(),
+            Container(
+              width: 70,
+              height: 26,
+              child: ElevatedButton(
+                style: ElevatedButton.styleFrom(
+                  backgroundColor: MyColor.noColor,
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(6),
+                    side: BorderSide(color: MyColor.white),
+                  ),
+                  padding: EdgeInsets.symmetric(horizontal: 14, vertical: 7),
+                ),
+                child: Text(
+                  'Log out',
+                  style: TextStyle(
+                      color: Colors.white,
+                      fontSize: 10,
+                      fontWeight: FontWeight.w500),
+                ),
+                onPressed: () async => AuthMethods().signOut(),
+              ),
+            ),
+          ],
+        ),
+      );
+    });
   }
 
   Widget buildCountersRow() {

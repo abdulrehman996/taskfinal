@@ -195,7 +195,7 @@ class _LoginPageState extends State<LoginPage> {
                                               });
                                               return;
                                             }
-                                            Navigator.push(context,
+                                            Navigator.pushReplacement(context,
                                                 MaterialPageRoute(
                                                     builder: (context) {
                                               return const MaineScreen();
