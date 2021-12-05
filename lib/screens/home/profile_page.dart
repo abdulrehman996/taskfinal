@@ -1,6 +1,7 @@
 import 'package:biz_link/database/auth_methods.dart';
 import 'package:biz_link/models/app_user.dart';
 import 'package:biz_link/providers/user_provider.dart';
+import 'package:biz_link/screens/auth/login_page.dart';
 import 'package:biz_link/widgets/circle_image.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -126,7 +127,12 @@ class _ProfilePageState extends State<ProfilePage> {
                       fontSize: 10,
                       fontWeight: FontWeight.w500),
                 ),
-                onPressed: () async => AuthMethods().signOut(),
+                onPressed: () async {
+                  await AuthMethods().signOut();
+                  Navigator.of(context).pushReplacement(MaterialPageRoute(
+                    builder: (context) => LoginPage(),
+                  ));
+                },
               ),
             ),
           ],
