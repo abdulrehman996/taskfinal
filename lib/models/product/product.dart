@@ -15,8 +15,6 @@ class Product {
     required this.price,
     this.location,
     this.quantity = 1,
-    this.acceptOffers = true,
-    this.deliveryFree = 0,
     this.timestamp,
     this.isAvailable = true,
   });
@@ -32,8 +30,6 @@ class Product {
   late double price;
   late String? location;
   late int quantity;
-  late bool acceptOffers;
-  late double deliveryFree;
   late int? timestamp;
   late bool isAvailable; // available for sale any more are not
 
@@ -49,8 +45,6 @@ class Product {
       'sub_categories': subCategories,
       'price': price,
       'quantity': quantity,
-      'accept_offers': acceptOffers,
-      'delivery_free': deliveryFree,
       'timestamp': timestamp,
       'is_available': isAvailable,
     };
@@ -74,8 +68,6 @@ class Product {
       price: doc.data()!['price']?.toDouble() ?? 0.0,
       location: doc.data()!['location'] ?? 'location not found',
       quantity: doc.data()!['quantity']?.toInt() ?? 0,
-      acceptOffers: doc.data()!['accept_offers'] ?? false,
-      deliveryFree: doc.data()!['delivery_free']?.toDouble() ?? 0.0,
       timestamp: doc.data()!['timestamp']?.toInt(),
       isAvailable: doc.data()!['is_available'] ?? false,
     );

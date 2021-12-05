@@ -151,8 +151,6 @@ class _AddProductScreenState extends State<AddProductScreen> {
         categories: <String>[category.selectedCategroy!.catID],
         subCategories: <String>[category.selectedSubCategory!.catID],
         price: double.parse(_price.text),
-        acceptOffers: _acceptOffer,
-        deliveryFree: double.parse(_deliveryFee.text.trim()),
         quantity: int.parse(_quantity.text.trim()),
         isAvailable: true,
         timestamp: DateTime.now().microsecondsSinceEpoch,
