@@ -7,42 +7,47 @@ import '../../../widgets/custom_widgets/show_loading.dart';
 
 class PersonalChatDashboard extends StatelessWidget {
   const PersonalChatDashboard({Key? key}) : super(key: key);
+  static const String routeName = '/personal';
 
   @override
   Widget build(BuildContext context) {
-    return StreamBuilder<List<Chat>>(
-      stream: ChatAPI().chats(),
-      builder: (_, AsyncSnapshot<List<Chat>> snapshot) {
-        if (snapshot.hasError) {
-          return const _ErrorWidget();
-        } else {
-          if (snapshot.connectionState == ConnectionState.waiting) {
-            return const ShowLoading();
-            // return const SizedBox();
+    return Scaffold(
+      appBar: AppBar(title: Text('Chat')),
+      body: StreamBuilder<List<Chat>>(
+        stream: ChatAPI().chats(),
+        builder: (_, AsyncSnapshot<List<Chat>> snapshot) {
+          if (snapshot.hasError) {
+            print(snapshot.error.toString());
+            return const _ErrorWidget();
           } else {
-            if (snapshot.hasData) {
-              List<Chat> chat = snapshot.data ?? <Chat>[];
-              return chat.isEmpty
-                  ? const Center(child: Text('No Chat available yet'))
-                  : ListView.separated(
-                      itemCount: chat.length,
-                      separatorBuilder: (_, __) => const Padding(
-                        padding: EdgeInsets.symmetric(horizontal: 16),
-                        child: Divider(height: 1),
-                      ),
-                      itemBuilder: (_, int index) {
-                        return chat[index].pid == null ||
-                                (chat[index].pid?.isEmpty ?? false)
-                            ? ChatDashboardTile(chat: chat[index])
-                            : ProductChatDashboardTile(chat: chat[index]);
-                      },
-                    );
+            if (snapshot.connectionState == ConnectionState.waiting) {
+              return const ShowLoading();
+              // return const SizedBox();
             } else {
-              return const Text('Error Text');
+              if (snapshot.hasData) {
+                List<Chat> chat = snapshot.data ?? <Chat>[];
+                return chat.isEmpty
+                    ? Center(child: SelectableText(snapshot.error.toString()))
+                    : ListView.separated(
+                        itemCount: chat.length,
+                        separatorBuilder: (_, __) => const Padding(
+                          padding: EdgeInsets.symmetric(horizontal: 16),
+                          child: Divider(height: 1),
+                        ),
+                        itemBuilder: (_, int index) {
+                          return chat[index].pid == null ||
+                                  (chat[index].pid?.isEmpty ?? false)
+                              ? ChatDashboardTile(chat: chat[index])
+                              : ProductChatDashboardTile(chat: chat[index]);
+                        },
+                      );
+              } else {
+                return SelectableText(snapshot.error.toString());
+              }
             }
           }
-        }
-      },
+        },
+      ),
     );
   }
 }

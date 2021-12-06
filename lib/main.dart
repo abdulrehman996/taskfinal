@@ -1,6 +1,7 @@
 import 'package:biz_link/providers/product_category_provider.dart';
 import 'package:biz_link/providers/product_provider.dart';
 import 'package:biz_link/providers/user_provider.dart';
+import 'package:biz_link/screens/chat/personal_chat_page/personal_chat_dashboard.dart';
 import 'package:biz_link/screens/home/main_screen.dart';
 import 'package:biz_link/screens/product_screens/add_product_screen.dart';
 import 'package:biz_link/utility/colors.dart';
@@ -62,6 +63,8 @@ class MyApp extends StatelessWidget {
 
             // Product
             AddProductScreen.routeName: (_) => const AddProductScreen(),
+            PersonalChatDashboard.routeName: (_) =>
+                const PersonalChatDashboard(),
           },
         );
       }),
