@@ -27,7 +27,7 @@ class PersonalChatDashboard extends StatelessWidget {
               if (snapshot.hasData) {
                 List<Chat> chat = snapshot.data ?? <Chat>[];
                 return chat.isEmpty
-                    ? Center(child: SelectableText(snapshot.error.toString()))
+                    ? Center(child: SelectableText('No chat available'))
                     : ListView.separated(
                         itemCount: chat.length,
                         separatorBuilder: (_, __) => const Padding(
@@ -42,7 +42,7 @@ class PersonalChatDashboard extends StatelessWidget {
                         },
                       );
               } else {
-                return SelectableText(snapshot.error.toString());
+                return SelectableText('Something goes wrong');
               }
             }
           }

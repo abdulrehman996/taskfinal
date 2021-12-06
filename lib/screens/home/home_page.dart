@@ -20,6 +20,7 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
+    print(AuthMethods.uid);
     final List<Product> products =
         Provider.of<ProductProvider>(context).products;
     return Scaffold(
@@ -28,7 +29,6 @@ class _HomePageState extends State<HomePage> {
         actions: [
           IconButton(
             onPressed: () async {
-              await AuthMethods().signOut();
               Navigator.of(context).pushNamed(PersonalChatDashboard.routeName);
             },
             icon: Icon(Icons.chat),

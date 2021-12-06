@@ -39,10 +39,10 @@ class ChatAPI {
     return _instance
         .collection(_collection)
         .where('persons', arrayContains: AuthMethods.uid)
-        .where('is_group', isEqualTo: false)
         .orderBy('timestamp', descending: true)
         .snapshots()
         .asyncMap((QuerySnapshot<Map<String, dynamic>> event) {
+      print(event.docs.length);
       List<Chat> chats = <Chat>[];
       for (DocumentSnapshot<Map<String, dynamic>> element in event.docs) {
         final Chat temp = Chat.fromMap(element.data()!);
