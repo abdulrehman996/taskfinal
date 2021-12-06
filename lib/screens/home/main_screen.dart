@@ -1,7 +1,7 @@
 import 'dart:ui';
 
 import 'package:biz_link/screens/home/cart_page.dart';
-import 'package:biz_link/screens/home/category_page.dart';
+import 'package:biz_link/screens/home/search_page.dart';
 import 'package:biz_link/screens/home/home_page.dart';
 import 'package:biz_link/screens/home/profile_page.dart';
 import 'package:flutter/material.dart';
@@ -23,7 +23,7 @@ class _MaineScreenState extends State<MaineScreen> {
 
   var _children = [
     HomePage(),
-    CategoryPage(),
+    SearchPage(),
     CartPage(),
     ProfilePage(),
   ];
@@ -133,14 +133,14 @@ class _MaineScreenState extends State<MaineScreen> {
                     icon: Padding(
                       padding: const EdgeInsets.only(bottom: 8.0),
                       child: Icon(
-                        Icons.category_outlined,
+                        Icons.search,
                         color: _currentIndex == 1
                             ? MyColor.accent_color
                             : Color.fromRGBO(153, 153, 153, 1),
                         size: 16,
                       ),
                     ),
-                    label: 'Category'),
+                    label: 'Search'),
                 BottomNavigationBarItem(
                     icon: Padding(
                       padding: const EdgeInsets.only(bottom: 8.0),

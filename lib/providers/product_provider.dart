@@ -27,9 +27,21 @@ class ProductProvider extends ChangeNotifier {
 
   List<Product> _products = <Product>[];
   bool _isLoading = true;
+  String _search = '';
 
   List<Product> get products => _products;
   bool get isLoading => _isLoading;
+
+  onSearch(String value) {
+    _search = value;
+    notifyListeners();
+  }
+
+  List<Product> filter() {
+    return _products
+        .where((e) => e.title.toLowerCase().contains(_search.toLowerCase()))
+        .toList();
+  }
 
   List<Product> productsByUsers(AppUser me) {
     final List<String> supporting = me.supporting ?? <String>[];
