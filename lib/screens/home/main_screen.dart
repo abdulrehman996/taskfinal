@@ -38,63 +38,7 @@ class _MaineScreenState extends State<MaineScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: _children[_currentIndex],
-      bottomNavigationBar:
-          // GNav(
-          //   rippleColor: Colors.grey.shade300,
-          //   // tab button ripple color when pressed
-          //   hoverColor: Colors.grey.shade100,
-          //   // tab button hover color
-          //   haptic: true,
-          //
-          //   // haptic feedback
-          //   // tabBorderRadius: 15,
-          //   // tabActiveBorder: Border.all(color: MyColor.soft_accent_color, width: 1),
-          //   // // tab button border
-          //   // tabBorder: Border.all(color: MyColor.soft_accent_color, width: 1),
-          //   // // tab button border
-          //   // tabShadow: [
-          //   //   BoxShadow(color: Colors.grey.withOpacity(0.5), blurRadius: 8)
-          //   // ],
-          //   // // tab button shadow
-          //   // curve: Curves.easeOutQuad,
-          //   // // tab animation curves
-          //
-          //   duration: Duration(milliseconds: 300),
-          //   // tab animation duration
-          //   gap: 8,
-          //   // the tab button gap between icon and text
-          //   color: MyColor.soft_accent_color.withOpacity(0.60),
-          //   // unselected icon color
-          //   activeColor: MyColor.accent_color,
-          //   // selected icon and text color
-          //   iconSize: 24,
-          //   // tab button icon size
-          //   tabBackgroundColor:  Colors.grey.shade100,
-          //   // selected tab background color
-          //   padding: EdgeInsets.symmetric(horizontal: 20, vertical: 5),
-          //   // navigation bar padding
-          //   onTabChange: onTapped,
-          //   tabs: [
-          //     GButton(
-          //       icon: Icons.home,
-          //       text: 'Home',
-          //     ),
-          //     GButton(
-          //       icon: Icons.category_outlined,
-          //       text: 'Shops',
-          //     ),
-          //     GButton(
-          //       icon: Icons.search,
-          //       text: 'Search',
-          //     ),
-          //     GButton(
-          //       icon: Icons.person,
-          //       text: 'Profile',
-          //     )
-          //   ],
-          // ),
-
-          BottomAppBar(
+      bottomNavigationBar: BottomAppBar(
         color: Colors.transparent,
         clipBehavior: Clip.antiAlias,
         child: BackdropFilter(
@@ -118,53 +62,57 @@ class _MaineScreenState extends State<MaineScreen> {
                   fontSize: 12),
               items: [
                 BottomNavigationBarItem(
-                    icon: Padding(
-                      padding: const EdgeInsets.only(bottom: 8.0),
-                      child: Icon(
-                        Icons.home,
-                        color: _currentIndex == 0
-                            ? MyColor.accent_color
-                            : Color.fromRGBO(153, 153, 153, 1),
-                        size: 16,
-                      ),
+                  icon: Padding(
+                    padding: const EdgeInsets.only(bottom: 8.0),
+                    child: Icon(
+                      Icons.home,
+                      color: _currentIndex == 0
+                          ? MyColor.accent_color
+                          : Color.fromRGBO(153, 153, 153, 1),
+                      size: 16,
                     ),
-                    label: 'Home'),
+                  ),
+                  label: 'Home',
+                ),
                 BottomNavigationBarItem(
-                    icon: Padding(
-                      padding: const EdgeInsets.only(bottom: 8.0),
-                      child: Icon(
-                        Icons.search,
-                        color: _currentIndex == 1
-                            ? MyColor.accent_color
-                            : Color.fromRGBO(153, 153, 153, 1),
-                        size: 16,
-                      ),
+                  icon: Padding(
+                    padding: const EdgeInsets.only(bottom: 8.0),
+                    child: Icon(
+                      Icons.search,
+                      color: _currentIndex == 1
+                          ? MyColor.accent_color
+                          : Color.fromRGBO(153, 153, 153, 1),
+                      size: 16,
                     ),
-                    label: 'Search'),
+                  ),
+                  label: 'Search',
+                ),
                 BottomNavigationBarItem(
-                    icon: Padding(
-                      padding: const EdgeInsets.only(bottom: 8.0),
-                      child: Icon(
-                        Icons.shopping_cart_outlined,
-                        color: _currentIndex == 2
-                            ? MyColor.accent_color
-                            : Color.fromRGBO(153, 153, 153, 1),
-                        size: 16,
-                      ),
+                  icon: Padding(
+                    padding: const EdgeInsets.only(bottom: 8.0),
+                    child: Icon(
+                      Icons.shopping_cart_outlined,
+                      color: _currentIndex == 2
+                          ? MyColor.accent_color
+                          : Color.fromRGBO(153, 153, 153, 1),
+                      size: 16,
                     ),
-                    label: 'Cart'),
+                  ),
+                  label: 'Cart',
+                ),
                 BottomNavigationBarItem(
-                    icon: Padding(
-                      padding: const EdgeInsets.only(bottom: 8.0),
-                      child: Icon(
-                        Icons.person,
-                        color: _currentIndex == 3
-                            ? MyColor.accent_color
-                            : Color.fromRGBO(153, 153, 153, 1),
-                        size: 16,
-                      ),
+                  icon: Padding(
+                    padding: const EdgeInsets.only(bottom: 8.0),
+                    child: Icon(
+                      Icons.person,
+                      color: _currentIndex == 3
+                          ? MyColor.accent_color
+                          : Color.fromRGBO(153, 153, 153, 1),
+                      size: 16,
                     ),
-                    label: 'Profile'),
+                  ),
+                  label: 'Profile',
+                ),
               ],
             ),
           ),
