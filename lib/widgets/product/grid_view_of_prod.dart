@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import '../../models/product/product.dart';
+import '../../screens/product_screens/product_detail_screen.dart';
 import '../custom_widgets/custom_network_image.dart';
 
 class GridViewOfProducts extends StatelessWidget {
@@ -28,17 +29,17 @@ class GridViewOfProducts extends StatelessWidget {
         child: InkWell(
           borderRadius: BorderRadius.circular(8),
           onTap: () {
-            // Navigator.of(context).push(
-            //   isProfileWidget
-            //       ? MaterialPageRoute<UserProductsScreen>(
-            //           builder: (_) => UserProductsScreen(
-            //               products: posts, selectedIndex: index),
-            //         )
-            //       : MaterialPageRoute<ProductDetailScreen>(
-            //           builder: (_) =>
-            //               ProductDetailScreen(product: posts[index]),
-            //         ),
-            // );
+            Navigator.of(context).push(
+              //   isProfileWidget
+              //       ? MaterialPageRoute<UserProductsScreen>(
+              //           builder: (_) => UserProductsScreen(
+              //               products: posts, selectedIndex: index),
+              //         )
+              //       :
+              MaterialPageRoute<ProductDetailScreen>(
+                builder: (_) => ProductDetailScreen(product: posts[index]),
+              ),
+            );
           },
           child: Container(
             width: double.infinity,
@@ -82,7 +83,7 @@ class GridViewOfProducts extends StatelessWidget {
                       children: <Widget>[
                         Expanded(
                           child: Text(
-                            ' ${posts[index].price} - ${posts[index].title}',
+                            '${posts[index].title}',
                             maxLines: 1,
                             overflow: TextOverflow.ellipsis,
                             style: const TextStyle(fontSize: 18),
