@@ -1,3 +1,4 @@
+import 'package:biz_link/enums/role.dart';
 import 'package:flutter/material.dart';
 import '../../database/auth_methods.dart';
 import '../../database/user_api.dart';
@@ -80,6 +81,12 @@ class UserProvider extends ChangeNotifier {
   int _indexOf(String uid) {
     int index = _user.indexWhere((AppUser element) => element.uid == uid);
     return index;
+  }
+
+  List<String> sellTo() {
+    final AppUser appUser = user(uid: AuthMethods.uid);
+    final Role to = RoleConvertor().sellTo(appUser.role);
+    return [to.json];
   }
 
   static AppUser get _null => AppUser(

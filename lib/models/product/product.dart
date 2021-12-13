@@ -1,3 +1,4 @@
+import 'package:biz_link/enums/role.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 
 import 'product_url.dart';
@@ -8,10 +9,10 @@ class Product {
     required this.uid,
     required this.title,
     required this.prodURL,
-    required this.thumbnail,
     required this.description,
     required this.categories,
     required this.subCategories,
+    required this.sellTo,
     required this.price,
     this.location,
     this.quantity = 1,
@@ -23,10 +24,10 @@ class Product {
   late String uid;
   late String title;
   late List<ProductURL> prodURL;
-  late String thumbnail;
   late String description;
   late List<String> categories;
   late List<String> subCategories;
+  final List<String> sellTo;
   late double price;
   late String? location;
   late int quantity;
@@ -39,9 +40,9 @@ class Product {
       'uid': uid,
       'title': title,
       'prodURL': prodURL.map((ProductURL e) => e.toMap()).toList(),
-      'thumbnail': thumbnail,
       'description': description,
       'categories': categories,
+      'sell_to': sellTo,
       'sub_categories': subCategories,
       'price': price,
       'quantity': quantity,
@@ -53,23 +54,23 @@ class Product {
   // ignore: sort_constructors_first
   factory Product.fromDoc(DocumentSnapshot<Map<String, dynamic>> doc) {
     List<ProductURL> prodURL = <ProductURL>[];
-    doc.data()!['prodURL'].forEach((dynamic e) {
+    doc.data()?['prodURL'].forEach((dynamic e) {
       prodURL.add(ProductURL.fromMap(e));
     });
     return Product(
-      pid: doc.data()!['pid'] ?? '',
-      uid: doc.data()!['uid'] ?? '',
-      title: doc.data()!['title'] ?? '',
+      pid: doc.data()?['pid'] ?? '',
+      uid: doc.data()?['uid'] ?? '',
+      title: doc.data()?['title'] ?? '',
       prodURL: prodURL,
-      thumbnail: doc.data()!['thumbnail'] ?? '',
-      description: doc.data()!['description'] ?? '',
-      categories: List<String>.from(doc.data()!['categories']),
-      subCategories: List<String>.from(doc.data()!['sub_categories']),
-      price: doc.data()!['price']?.toDouble() ?? 0.0,
-      location: doc.data()!['location'] ?? 'location not found',
-      quantity: doc.data()!['quantity']?.toInt() ?? 0,
-      timestamp: doc.data()!['timestamp']?.toInt(),
-      isAvailable: doc.data()!['is_available'] ?? false,
+      description: doc.data()?['description'] ?? '',
+      categories: List<String>.from(doc.data()?['categories'] ?? []),
+      subCategories: List<String>.from(doc.data()?['sub_categories'] ?? []),
+      sellTo: List<String>.from(doc.data()?['sell_to'] ?? [Role.retailer.json]),
+      price: doc.data()?['price']?.toDouble() ?? 0.0,
+      location: doc.data()?['location'] ?? 'location not found',
+      quantity: doc.data()?['quantity']?.toInt() ?? 0,
+      timestamp: doc.data()?['timestamp']?.toInt(),
+      isAvailable: doc.data()?['is_available'] ?? false,
     );
   }
 }

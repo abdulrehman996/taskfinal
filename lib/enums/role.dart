@@ -25,4 +25,34 @@ class RoleConvertor {
         return Role.retailer;
     }
   }
+
+  Role sellTo(Role value) {
+    switch (value) {
+      case Role.factory:
+        return Role.distributor;
+      case Role.distributor:
+        return Role.wholesaler;
+      case Role.wholesaler:
+        return Role.retailer;
+      case Role.retailer:
+        return Role.retailer;
+      default:
+        return Role.retailer;
+    }
+  }
+
+  Role buyFrom(Role value) {
+    switch (value) {
+      case Role.factory:
+        return Role.factory;
+      case Role.distributor:
+        return Role.factory;
+      case Role.wholesaler:
+        return Role.distributor;
+      case Role.retailer:
+        return Role.wholesaler;
+      default:
+        return Role.factory;
+    }
+  }
 }

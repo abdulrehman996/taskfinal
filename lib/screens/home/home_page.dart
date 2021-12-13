@@ -1,5 +1,7 @@
+import 'package:biz_link/enums/role.dart';
 import 'package:biz_link/models/product/product.dart';
 import 'package:biz_link/providers/product_provider.dart';
+import 'package:biz_link/providers/user_provider.dart';
 import 'package:biz_link/screens/auth/login_page.dart';
 import 'package:biz_link/screens/chat/personal_chat_page/personal_chat_dashboard.dart';
 import 'package:biz_link/screens/product_screens/add_product_screen.dart';
@@ -21,8 +23,13 @@ class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     print(AuthMethods.uid);
-    final List<Product> products =
-        Provider.of<ProductProvider>(context).products;
+    final List<Product> products = Provider.of<ProductProvider>(context)
+        .products(RoleConvertor()
+            .buyFrom(Provider.of<UserProvider>(context)
+                .user(uid: AuthMethods.uid)
+                .role)
+            .json);
+    print(products.length);
     return Scaffold(
       appBar: AppBar(
         title: Text('Home Page'),
