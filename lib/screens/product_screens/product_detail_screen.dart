@@ -155,10 +155,8 @@ class _ProductAdditionalInfo extends StatelessWidget {
                 title: 'Price',
                 subtitle: product.price.toString(),
               ),
-              
             ],
           ),
-          
           const SizedBox(height: 6),
           Text(
             '${product.categories[0]}, ${product.subCategories[0]}',
@@ -187,27 +185,27 @@ class _ButtonSection extends StatelessWidget {
               children: <Widget>[
                 Row(
                   children: <Widget>[
-                    // Expanded(
-                    //   child: CustomElevatedButton(
-                    //     padding: _padding,
-                    //     margin: _margin,
-                    //     textStyle: _textStyle,
-                    //     title: 'Buy Now',
-                    //     onTap: () {
-                    //       if (AuthMethods.getCurrentUser == null) {
-                    //         Navigator.of(context)
-                    //             .pushNamed(LoginPage.routeName);
-                    //         return;
-                    //       }
-                    //       Navigator.of(context)
-                    //           .push(MaterialPageRoute<ProductChatScreen>(
-                    //         builder: (BuildContext context) => BuyNowScreen(
-                    //           product: product,
-                    //         ),
-                    //       ));
-                    //     },
-                    //   ),
-                    // ),
+                    Expanded(
+                      child: CustomElevatedButton(
+                        padding: _padding,
+                        margin: _margin,
+                        textStyle: _textStyle,
+                        title: 'Add To Cart',
+                        onTap: () {
+                          if (AuthMethods.getCurrentUser == null) {
+                            Navigator.of(context)
+                                .pushNamed(LoginPage.routeName);
+                            return;
+                          }
+                          // Navigator.of(context)
+                          //     .push(MaterialPageRoute<ProductChatScreen>(
+                          //   builder: (BuildContext context) => BuyNowScreen(
+                          //     product: product,
+                          //   ),
+                          // ));
+                        },
+                      ),
+                    ),
                   ],
                 ),
                 const SizedBox(height: 8),
@@ -223,8 +221,7 @@ class _ButtonSection extends StatelessWidget {
                   title: 'Message Seller',
                   onTap: () {
                     if (AuthMethods.getCurrentUser == null) {
-                      Navigator.of(context)
-                          .pushNamed(LoginPage.routeName);
+                      Navigator.of(context).pushNamed(LoginPage.routeName);
                       return;
                     }
                     if (AuthMethods.uid == product.uid) return;

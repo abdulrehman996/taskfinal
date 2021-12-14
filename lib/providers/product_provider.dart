@@ -31,10 +31,18 @@ class ProductProvider extends ChangeNotifier {
   String _search = '';
 
   // List<Product> get products => _products;
-  List<Product> products(String value) => _products
-      .where((element) => element.sellTo.contains(value))
-      .cast<Product>()
-      .toList();
+  List<Product> products(String value) {
+    final List<Product> prods = [];
+    for (Product element in _products) {
+      if (element.sellTo.any((e2) => e2 == value) ||
+          element.uid == AuthMethods.uid) {
+        prods.add(element);
+      }
+    }
+    print(prods.length);
+    return prods;
+  }
+
   bool get isLoading => _isLoading;
 
   onSearch(String value) {

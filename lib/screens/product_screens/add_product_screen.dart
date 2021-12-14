@@ -153,7 +153,7 @@ class _AddProductScreenState extends State<AddProductScreen> {
         prodURL: urls,
         description: _description.text.trim(),
         categories: <String>[category.selectedCategroy!.catID],
-        subCategories: <String>[category.selectedSubCategory!.catID],
+        subCategories: <String>[category.selectedSubCategory!.subCatID],
         sellTo: [RoleConvertor().sellTo(me.role).json],
         price: double.parse(_price.text),
         quantity: int.parse(_quantity.text.trim()),
