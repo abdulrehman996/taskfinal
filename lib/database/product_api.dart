@@ -58,6 +58,29 @@ class ProductAPI {
     }
   }
 
+  Future<bool> update(Product product) async {
+    try {
+      // ignore: always_specify_types
+      await _instance
+          .collection(_collection)
+          .doc(product.pid)
+          .update(product.update());
+      return true;
+    } catch (e) {
+      return false;
+    }
+  }
+
+  Future<bool> delete(String value) async {
+    try {
+      // ignore: always_specify_types
+      await _instance.collection(_collection).doc(value).delete();
+      return true;
+    } catch (e) {
+      return false;
+    }
+  }
+
   Future<String?> uploadImage({required String pid, required File file}) async {
     try {
       log('Start Uploading image PATH SET...');

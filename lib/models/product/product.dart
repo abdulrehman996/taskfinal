@@ -51,6 +51,15 @@ class Product {
     };
   }
 
+  Map<String, dynamic> update() {
+    return <String, dynamic>{
+      'title': title,
+      'description': description,
+      'price': price,
+      'quantity': quantity,
+    };
+  }
+
   // ignore: sort_constructors_first
   factory Product.fromDoc(DocumentSnapshot<Map<String, dynamic>> doc) {
     List<ProductURL> prodURL = <ProductURL>[];

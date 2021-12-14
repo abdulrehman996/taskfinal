@@ -16,6 +16,7 @@ import '../../models/product/prod_sub_category.dart';
 import '../../models/product/product.dart';
 import '../../models/product/product_url.dart';
 import '../../providers/product_category_provider.dart';
+import '../../providers/product_provider.dart';
 import '../../utility/custom_services.dart';
 import '../../utility/custom_validators.dart';
 import '../../widgets/custom_widgets/custom_toast.dart';
@@ -82,6 +83,7 @@ class _AddProductScreenState extends State<AddProductScreen> {
           child: Form(
             key: _key,
             child: SingleChildScrollView(
+              keyboardDismissBehavior: ScrollViewKeyboardDismissBehavior.onDrag,
               child: Consumer<ProdCatProvider>(
                 builder: (
                   BuildContext context,
@@ -166,8 +168,7 @@ class _AddProductScreenState extends State<AddProductScreen> {
       });
       if (uploaded) {
         if (!mounted) return;
-        // Provider.of<AppProvider>(context, listen: false).onTabTapped(0);
-        // _reset();
+        await Provider.of<ProductProvider>(context, listen: false).refresh();
         Navigator.of(context).pop();
         CustomToast.successToast(message: 'Uploaded Successfully');
       } else {
