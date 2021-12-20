@@ -2,12 +2,14 @@ import 'package:biz_link/database/auth_methods.dart';
 import 'package:biz_link/models/app_user.dart';
 import 'package:biz_link/providers/user_provider.dart';
 import 'package:biz_link/screens/auth/login_page.dart';
+import 'package:biz_link/screens/product_screens/my_product_screen.dart';
 import 'package:biz_link/widgets/circle_image.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:sizer/sizer.dart';
 
 import '../../utility/colors.dart';
+import '../chat/personal_chat_page/personal_chat_dashboard.dart';
 
 class ProfilePage extends StatefulWidget {
   const ProfilePage({Key? key}) : super(key: key);
@@ -319,7 +321,41 @@ class _ProfilePageState extends State<ProfilePage> {
           Container(
             height: 40,
             child: TextButton(
-              onPressed: () {},
+              onPressed: () {
+                Navigator.of(context).pushNamed(MyProductScreen.routeName);
+              },
+              style: TextButton.styleFrom(
+                  splashFactory: NoSplash.splashFactory,
+                  alignment: Alignment.center,
+                  padding: EdgeInsets.zero),
+              child: Row(
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  Icon(Icons.my_library_books_rounded),
+                  SizedBox(
+                    width: 24,
+                  ),
+                  Text(
+                    'My Products',
+                    textAlign: TextAlign.center,
+                    style:
+                        TextStyle(color: MyColor.dark_font_grey, fontSize: 12),
+                  )
+                ],
+              ),
+            ),
+          ),
+          Divider(
+            thickness: 1,
+            color: MyColor.light_grey,
+          ),
+          Container(
+            height: 40,
+            child: TextButton(
+              onPressed: () {
+                Navigator.of(context)
+                    .pushNamed(PersonalChatDashboard.routeName);
+              },
               style: TextButton.styleFrom(
                   splashFactory: NoSplash.splashFactory,
                   alignment: Alignment.center,

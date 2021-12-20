@@ -34,8 +34,7 @@ class ProductProvider extends ChangeNotifier {
   List<Product> products(String value) {
     final List<Product> prods = [];
     for (Product element in _products) {
-      if (element.sellTo.any((e2) => e2 == value) ||
-          element.uid == AuthMethods.uid) {
+      if (element.sellTo.any((e2) => e2 == value)) {
         prods.add(element);
       }
     }
@@ -56,11 +55,10 @@ class ProductProvider extends ChangeNotifier {
         .toList();
   }
 
-  List<Product> productsByUsers(AppUser me) {
-    final List<String> supporting = me.supporting ?? <String>[];
+  List<Product> productsByUID(String me) {
     List<Product> tempProd = <Product>[];
     for (Product element in _products) {
-      if (supporting.contains(element.uid)) {
+      if (element.uid == me) {
         tempProd.add(element);
       }
     }
