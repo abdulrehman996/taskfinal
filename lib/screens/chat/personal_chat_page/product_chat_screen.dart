@@ -81,7 +81,7 @@ class ProductChatScreen extends StatelessWidget {
         },
         child: Row(
           children: <Widget>[
-            CustomProfileImage(imageURL: chatWith.imageURL ?? ''),
+            CustomProfileImage(imageURL: chatWith.imageURL ?? 'assets/images/avatar.jpg'),
             const SizedBox(width: 8),
             Expanded(
               child: Column(

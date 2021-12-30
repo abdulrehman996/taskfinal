@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import '../functions/time_date_function.dart';
 import '../models/app_user.dart';
@@ -53,6 +54,56 @@ class AuthMethods {
       return null;
     }
   }
+  Future<User?> emailExist({required String email, required String password,}) async {
+    try {
+      final UserCredential result = await _auth
+          .createUserWithEmailAndPassword(
+        email: email.toLowerCase().trim(),
+        password: password.trim(),
+      )
+          .catchError((Object obj) {
+        CustomToast.errorToast(message: obj.toString());
+      });
+      final User? user = result.user;
+      assert(user != null);
+
+      // Check if user with same email already exists
+      final QuerySnapshot<Map<String, dynamic>> existingUser = await FirebaseFirestore.instance
+          .collection('users')
+          .where('email', isEqualTo: email)
+          .get();
+
+      if (existingUser.docs.isNotEmpty) {
+        throw Exception('A user with this email already exists.');
+      }
+
+      return user;
+    } catch (signUpError) {
+      CustomToast.errorToast(message: signUpError.toString());
+      return null;
+
+    }
+  }
+  final CollectionReference _userCollection = FirebaseFirestore.instance.collection('users');
+  Future<User?> loginWithEmailAndPasswords(String email, String password) async {
+    try {
+      UserCredential result = await _auth.signInWithEmailAndPassword(
+          email: email, password: password);
+      User? user = result.user;
+      DocumentSnapshot userDoc =
+      await _userCollection.doc(user!.uid).get();
+      bool isBlocked = userDoc.get('isBlock') ?? false;
+      if (isBlocked) {
+        await _auth.signOut();
+        return null;
+      }
+      return user;
+    } catch (e) {
+      print(e);
+      return null;
+    }
+  }
+
 
   Future<bool> forgetPassword(String email) async {
     try {
@@ -63,8 +114,11 @@ class AuthMethods {
     }
     return false;
   }
-
-  Future<void> signOut() async {
+   Future<void> signOut() async {
     await _auth.signOut();
   }
+
+
+
+
 }

@@ -81,5 +81,6 @@ class Product {
       timestamp: doc.data()?['timestamp']?.toInt(),
       isAvailable: doc.data()?['is_available'] ?? false,
     );
+
   }
 }

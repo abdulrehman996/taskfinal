@@ -28,11 +28,16 @@ class _SignupPageState extends State<SignupPage> {
 
   final TextEditingController _firstNameController = TextEditingController();
   final TextEditingController _lastNameController = TextEditingController();
+  final TextEditingController _addressController = TextEditingController();
+  final TextEditingController _phoneNumber = TextEditingController();
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
   final TextEditingController _passwordConfirmController =
       TextEditingController();
   final GlobalKey<FormState> _key = GlobalKey<FormState>();
+
+
+
 
   List<Role> _roleList = [
     Role.distributor,
@@ -146,6 +151,38 @@ class _SignupPageState extends State<SignupPage> {
                                 hint: 'Last Name',
                                 validator: (value) =>
                                     CustomValidator.lessThen3(value),
+                              ),
+                              Padding(
+                                padding:
+                                    const EdgeInsets.symmetric(vertical: 6),
+                                child: Text(
+                                  'Address',
+                                  style: TextStyle(
+                                      color: MyColor.accent_color,
+                                      fontWeight: FontWeight.w600),
+                                ),
+                              ),
+                              CustomTextFormField(
+                                controller: _addressController,
+                                hint: 'Address',
+                                validator: (value) =>
+                                    CustomValidator.lessThen3(value),
+                              ),
+                              Padding(
+                                padding:
+                                    const EdgeInsets.symmetric(vertical: 6),
+                                child: Text(
+                                  'Phone Number',
+                                  style: TextStyle(
+                                      color: MyColor.accent_color,
+                                      fontWeight: FontWeight.w600),
+                                ),
+                              ),
+                              CustomTextFormField(
+                                controller: _phoneNumber,
+                                hint: 'Phone Number',
+                                validator: (value) =>
+                                    CustomValidator.lessThen11(value),
                               ),
                               Padding(
                                 padding:
@@ -347,7 +384,7 @@ class _SignupPageState extends State<SignupPage> {
                                             });
                                             final User? user =
                                                 await AuthMethods()
-                                                    .signupWithEmailAndPassword(
+                                                    .emailExist(
                                               email: _emailController.text,
                                               password:
                                                   _passwordController.text,
@@ -356,12 +393,28 @@ class _SignupPageState extends State<SignupPage> {
                                               setState(() {
                                                 _isLoading = false;
                                               });
+                                              showDialog(
+                                                context: context,
+                                                builder: (BuildContext context) {
+                                                  return AlertDialog(
+                                                    title: Text('Email Exist \nEnter Different Email'),
+                                                    actions: [
+                                                      TextButton(
+                                                        onPressed: () => Navigator.pop(context),
+                                                        child: Text('OK'),
+                                                      ),
+                                                    ],
+                                                  );
+                                                },
+                                              );
                                               return;
                                             }
                                             final AppUser appuser = AppUser(
                                               uid: user.uid,
                                               displayName:
                                                   '${_firstNameController.text} ${_lastNameController.text}',
+                                              countryCode:_addressController.text,
+                                              phoneNumber: _phoneNumber.text,
                                               email: _emailController.text,
                                               role: _selectedRole,
                                             );
@@ -419,5 +472,7 @@ class _SignupPageState extends State<SignupPage> {
         ],
       ),
     );
+
   }
+
 }

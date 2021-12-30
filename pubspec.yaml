@@ -15,7 +15,9 @@ dependencies:
   firebase_auth: ^4.2.5
   firebase_core: ^2.4.1
   firebase_storage: ^11.0.10
-
+  smooth_page_indicator: ^1.0.0+2
+  carousel_slider: ^4.1.1
+  firebase_database: ^10.0.16
   cupertino_icons: ^1.0.2
   sizer:
   get:
@@ -27,11 +29,12 @@ dependencies:
 
   shared_preferences: ^2.0.15
   provider: ^6.0.3
+  image_picker: ^0.8.4+4
 
   extended_image: ^6.2.1
   file_picker: ^4.6.1
 
-  carousel_slider: ^4.1.1
+
 
   permission_handler: ^10.0.0
   fluttertoast: ^8.1.2
@@ -58,4 +61,5 @@ flutter:
   uses-material-design: true
   assets:
     - assets/images/
+    - assets/banners/
     - assets/icons/

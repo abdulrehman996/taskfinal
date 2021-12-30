@@ -13,6 +13,7 @@ class CartPage extends StatefulWidget {
 }
 
 class _CartPageState extends State<CartPage> {
+
   @override
   Widget build(BuildContext context) {
     CartProvider cartPro = Provider.of<CartProvider>(context);
@@ -20,7 +21,11 @@ class _CartPageState extends State<CartPage> {
     return Scaffold(
       appBar: AppBar(title: const Text('My Cart')),
       body: cartPro.cartItem.isNotEmpty
-          ? const FillCartWidget()
+          ? Column(
+        children: <Widget>[
+          Expanded(child: const FillCartWidget()),
+        ],
+      )
           : const EmptyCartWidget(),
     );
   }

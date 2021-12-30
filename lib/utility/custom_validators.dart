@@ -44,6 +44,9 @@ class CustomValidator {
   static String? lessThen5(String? value) {
     return (value!.length < 5) ? 'Enter more then 4 characters' : null;
   }
+  static String? lessThen11(String? value) {
+    return (value!.length < 11) ? 'Enter 11 digit number \n format(03xx-xxxxxxx)' : null;
+  }
 
   static String? greaterThen(String? input, double compairWith) {
     return (double.parse(input ?? '0') < compairWith)
