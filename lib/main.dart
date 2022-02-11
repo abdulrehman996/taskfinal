@@ -16,6 +16,7 @@ import 'package:sizer/sizer.dart';
 
 import 'others/splash_screen.dart';
 import 'providers/cart_provider.dart';
+import 'screens/home/profile/edit_profile.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -65,6 +66,7 @@ class MyApp extends StatelessWidget {
           routes: {
             LoginPage.routeName: (_) => const LoginPage(),
             MaineScreen.routeName: (_) => const MaineScreen(),
+           
 
             // Product
             AddProductScreen.routeName: (_) => const AddProductScreen(),

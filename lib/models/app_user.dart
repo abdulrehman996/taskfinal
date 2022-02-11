@@ -20,13 +20,13 @@ class AppUser {
   });
 
   final String uid;
-  final String? displayName;
-  final String? username;
-  final Role role;
+   String? displayName;
+  String? username;
+  Role role;
   final String? imageURL;
   final String? countryCode;
-  final String? phoneNumber;
-  final String? email;
+  String? phoneNumber;
+   String? email;
   final bool? isBlock;
   final bool? isVerified;
   final double? rating;

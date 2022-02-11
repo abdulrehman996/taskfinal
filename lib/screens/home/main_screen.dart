@@ -3,7 +3,7 @@ import 'dart:ui';
 import 'package:biz_link/screens/home/cart_page.dart';
 import 'package:biz_link/screens/home/search_page.dart';
 import 'package:biz_link/screens/home/home_page.dart';
-import 'package:biz_link/screens/home/profile_page.dart';
+import 'package:biz_link/screens/home/profile/profile_page.dart';
 import 'package:flutter/material.dart';
 import 'package:google_nav_bar/google_nav_bar.dart';
 

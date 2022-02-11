@@ -2,14 +2,15 @@ import 'package:biz_link/database/auth_methods.dart';
 import 'package:biz_link/models/app_user.dart';
 import 'package:biz_link/providers/user_provider.dart';
 import 'package:biz_link/screens/auth/login_page.dart';
+import 'package:biz_link/screens/home/profile/edit_profile.dart';
 import 'package:biz_link/screens/product_screens/my_product_screen.dart';
 import 'package:biz_link/widgets/circle_image.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:sizer/sizer.dart';
 
-import '../../utility/colors.dart';
-import '../chat/personal_chat_page/personal_chat_dashboard.dart';
+import '../../../utility/colors.dart';
+import '../../chat/personal_chat_page/personal_chat_dashboard.dart';
 
 class ProfilePage extends StatefulWidget {
   const ProfilePage({Key? key}) : super(key: key);
@@ -31,6 +32,8 @@ class _ProfilePageState extends State<ProfilePage> {
 
   @override
   Widget build(BuildContext context) {
+    UserProvider userPro=Provider.of<UserProvider>(context);
+    AppUser user=userPro.user(uid:AuthMethods.uid);
     return Scaffold(
         body: Stack(
       children: [
@@ -41,24 +44,26 @@ class _ProfilePageState extends State<ProfilePage> {
           alignment: Alignment.topRight,
         ),
         SafeArea(
-          child: Column(
-            children: [
-              Padding(
-                padding: const EdgeInsets.symmetric(
-                    horizontal: 18.0, vertical: 28.0),
-                child: buildTopSection(),
-              ),
-              Padding(
-                padding: const EdgeInsets.symmetric(
-                    horizontal: 18.0, vertical: 10.0),
-                child: buildCountersRow(),
-              ),
-              Padding(
-                padding: const EdgeInsets.symmetric(
-                    horizontal: 18.0, vertical: 10.0),
-                child: buildSettingAndAddonsVerticalMenu(),
-              ),
-            ],
+          child: SingleChildScrollView(
+            child: Column(
+              children: [
+                Padding(
+                  padding: const EdgeInsets.symmetric(
+                      horizontal: 18.0, vertical: 28.0),
+                  child: buildTopSection(),
+                ),
+                Padding(
+                  padding: const EdgeInsets.symmetric(
+                      horizontal: 18.0, vertical: 10.0),
+                  child: buildCountersRow(),
+                ),
+                Padding(
+                  padding: const EdgeInsets.symmetric(
+                      horizontal: 18.0, vertical: 10.0),
+                  child: buildSettingAndAddonsVerticalMenu(user),
+                ),
+              ],
+            ),
           ),
         ),
       ],
@@ -198,7 +203,7 @@ class _ProfilePageState extends State<ProfilePage> {
     );
   }
 
-  Widget buildSettingAndAddonsVerticalMenu() {
+  Widget buildSettingAndAddonsVerticalMenu(AppUser user) {
     return Container(
       margin: EdgeInsets.only(bottom: 120, top: 14),
       padding: EdgeInsets.symmetric(horizontal: 22, vertical: 20),
@@ -219,7 +224,9 @@ class _ProfilePageState extends State<ProfilePage> {
           Container(
             height: 40,
             child: TextButton(
-              onPressed: () {},
+              onPressed: () {
+               Navigator.of(context).push(MaterialPageRoute(builder: (context) => EditProfile(user: user),));
+              },
               style: TextButton.styleFrom(
                   splashFactory: NoSplash.splashFactory,
                   alignment: Alignment.center,
