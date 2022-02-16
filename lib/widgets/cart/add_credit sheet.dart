@@ -1,6 +1,7 @@
 import 'package:biz_link/providers/cart_provider.dart';
 import 'package:biz_link/screens/home/main_screen.dart';
 import 'package:biz_link/widgets/custom_widgets/custom_elevated_button.dart';
+import 'package:biz_link/widgets/custom_widgets/show_loading.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
@@ -154,6 +155,7 @@ class _AddCreditSheetState extends State<AddCreditSheet> {
                     CustomElevatedButton(
                       title: 'Make Payment',
                       onTap: () {
+                        ShowLoading();
                         _showConfirmationDialog(context);
                       },
                     ),

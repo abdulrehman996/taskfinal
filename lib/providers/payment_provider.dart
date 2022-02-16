@@ -94,12 +94,7 @@ class PaymentProvider with ChangeNotifier{
     final ProductProvider productPro =
         Provider.of<ProductProvider>(context, listen: false);
     final AppUser sender = userPro.user(uid:AuthMethods.uid);
-    final AppUser receiver = userPro.user(uid:_orderProduct[0].sellerID);
-    final List<AppUser> recieverList = [];
-    for (int i = 0; i < cart.length; i++) {
-      final AppUser temp = userPro.user(uid:cart[0].sellerID);
-      recieverList.add(temp);
-    }
+    
     final List<Product> productList = [];
     for (int i = 0; i < cart.length; i++) {
       final Product temp = productPro.product(cart[i].id);
@@ -107,9 +102,7 @@ class PaymentProvider with ChangeNotifier{
     }
     final bool orderBool = await OrderApi().add(
         order: tempOrder,
-        receiver: recieverList,
-        sender: sender,
-        product: productList);
+     );
     
     final bool transactionBool = await TransactionApi().add(tempTransaction);
     orderdProduct.clear();

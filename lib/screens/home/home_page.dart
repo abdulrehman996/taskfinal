@@ -58,7 +58,7 @@ class _HomePageState extends State<HomePage> {
                   const SizedBox(
                     height: 20,
                   ),
-                  //  Container(child: BannerWidget()),
+                    Container(child: BannerWidget()),
                   const SizedBox(
                     height: 20,
                   ),

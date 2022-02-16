@@ -10,9 +10,7 @@ class OrderApi {
   static const String _collection = 'orders';
   Future<bool> add({
     required MyOrder order,
-    required AppUser sender,
-    required List<AppUser> receiver,
-    required List<Product> product,
+
   }) async {
     try {
       await _instance
