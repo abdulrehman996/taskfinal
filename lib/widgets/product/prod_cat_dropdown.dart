@@ -35,24 +35,26 @@ class ProdCatDropdown extends StatelessWidget {
         borderRadius: borderRadius ?? BorderRadius.circular(16),
       ),
       child: DropdownSearch<ProdCategory>(
-        showSearchBox: true,
-        dropdownSearchTextAlignVertical: TextAlignVertical.center,
-        mode: Mode.MENU,
+        // showSearchBox: true,
+        // dropdownSearchTextAlignVertical: TextAlignVertical.center,
+        // mode: Mode.MENU,
         selectedItem: selectedItem,
+
         items: items,
-        dropdownSearchBaseStyle: const TextStyle(color: Colors.white),
+      //  dropdownSearchBaseStyle: const TextStyle(color: Colors.white),
         itemAsString: (ProdCategory? item) => item!.title,
         onChanged: (ProdCategory? value) => onChanged(value),
         validator: (ProdCategory? value) {
           if (value == null) return 'Category Required';
           return null;
         },
-        showAsSuffixIcons: true,
-        dropdownSearchDecoration: InputDecoration(
-          hintText: hintText,
-          contentPadding: padding ?? const EdgeInsets.symmetric(horizontal: 10),
-          border: InputBorder.none,
-        ),
+
+        // showAsSuffixIcons: true,
+        // dropdownSearchDecoration: InputDecoration(
+        //   hintText: hintText,
+        //   contentPadding: padding ?? const EdgeInsets.symmetric(horizontal: 10),
+        //   border: InputBorder.none,
+        // ),
       ),
     );
   }

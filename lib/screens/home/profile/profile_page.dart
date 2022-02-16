@@ -10,6 +10,7 @@ import 'package:provider/provider.dart';
 import 'package:sizer/sizer.dart';
 
 import '../../../utility/colors.dart';
+import '../../../widgets/profile/order/order_tabbar.dart';
 import '../../chat/personal_chat_page/personal_chat_dashboard.dart';
 
 class ProfilePage extends StatefulWidget {
@@ -260,7 +261,9 @@ class _ProfilePageState extends State<ProfilePage> {
           Container(
             height: 40,
             child: TextButton(
-              onPressed: () {},
+              onPressed: () {
+                Navigator.of(context).push(MaterialPageRoute(builder: (context) => OrderTabbar(),));
+              },
               style: TextButton.styleFrom(
                   splashFactory: NoSplash.splashFactory,
                   alignment: Alignment.center,

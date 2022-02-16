@@ -49,7 +49,7 @@ class CartCheckoutWidget extends StatelessWidget {
                 borderRadius: BorderRadius.circular(24),
                 onTap: () async {
                   await HapticFeedback.heavyImpact();
-                  cartPro.deleteAllItem();
+                 // cartPro.deleteAllItem();
                   Navigator.of(context).push(MaterialPageRoute(builder: (context) => CheckoutDetails(),));
                   //_showConfirmationDialog(context);
                 },

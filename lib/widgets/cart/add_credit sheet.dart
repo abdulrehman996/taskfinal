@@ -1,8 +1,11 @@
+import 'package:biz_link/providers/cart_provider.dart';
 import 'package:biz_link/screens/home/main_screen.dart';
 import 'package:biz_link/widgets/custom_widgets/custom_elevated_button.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:provider/provider.dart';
 
+import '../../providers/payment_provider.dart';
 import '../custom_widgets/custom_text_form_with_header.dart';
 import '../custom_widgets/custom_text_widget.dart';
 
@@ -181,13 +184,22 @@ class _AddCreditSheetState extends State<AddCreditSheet> {
           content: const Text(
               'Your order has been sent to the owner. Confirmation of your order will be done in a while.'),
           actions: <Widget>[
-            TextButton(
-              onPressed: () {
-
-               Navigator.of(context).pushReplacementNamed(MaineScreen.routeName);
-               // Navigator.of(context).pop();
-              },
-              child: const Text('OK'),
+            Consumer2<PaymentProvider,CartProvider>(
+           
+              builder: (context,PaymentProvider paymentPro,CartProvider cartPro, snapshot) {
+                return TextButton(
+                  onPressed: () async {
+                      final bool done = await paymentPro.productOrder(context: 
+                                context, cart: cartPro.cartItem);
+                                if(done){
+              cartPro.deleteAllItem();
+                   Navigator.of(context).pushReplacementNamed(MaineScreen.routeName);
+                                }
+                   // Navigator.of(context).pop();
+                  },
+                  child: const Text('OK'),
+                );
+              }
             ),
           ],
         );

@@ -33,23 +33,23 @@ class ProdSubCatDropdown extends StatelessWidget {
         borderRadius: borderRadius ?? BorderRadius.circular(8),
       ),
       child: DropdownSearch<ProdSubCategory>(
-        showSearchBox: true,
-        dropdownSearchTextAlignVertical: TextAlignVertical.center,
-        mode: Mode.MENU,
+        // showSearchBox: true,
+        // dropdownSearchTextAlignVertical: TextAlignVertical.center,
+        // mode: Mode.MENU,
         selectedItem: selectedItem,
         items: items,
-        dropdownSearchBaseStyle: const TextStyle(color: Colors.white),
+        //dropdownSearchBaseStyle: const TextStyle(color: Colors.white),
         itemAsString: (ProdSubCategory? item) => item!.title,
         onChanged: (ProdSubCategory? value) => onChanged(value),
         validator: (ProdSubCategory? value) {
           if (value == null) return 'Sub Category Required';
           return null;
         },
-        dropdownSearchDecoration: InputDecoration(
-          hintText: hintText,
-          contentPadding: const EdgeInsets.symmetric(horizontal: 10),
-          border: InputBorder.none,
-        ),
+        // dropdownSearchDecoration: InputDecoration(
+        //   hintText: hintText,
+        //   contentPadding: const EdgeInsets.symmetric(horizontal: 10),
+        //   border: InputBorder.none,
+        // ),
       ),
     );
   }

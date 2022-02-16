@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 
 import '../../database/auth_methods.dart';
 import '../../database/product_api.dart';
-import '../../models/app_user.dart';
 import '../../models/product/product.dart';
 import '../../models/product/product_url.dart';
 
